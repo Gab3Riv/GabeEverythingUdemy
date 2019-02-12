@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <h1>Coding Challenge 5</h1>
+    </head>
+<script>
+    var billValues = [124,48,268,180,42];
+    var tips = [];
+    var finalBill = [];
+    var calculateTip = function(){
+        for(var i = 0; i < billValues.length; i+=1){
+            tempBillVal = billValues[i];
+            if(tempBillVal < 50){
+                tips.push(tempBillVal * .20);
+            }else if(tempBillVal >= 50 && tempBillVal <= 200){
+                tips.push(tempBillVal * .15);
+            }else{
+                tips.push(tempBillVal * .10);
+            }
+            finalBill.push(tempBillVal+tips[i]);
+        }
+        console.log(billValues, tips, finalBill);
+    }
+    var calculateAverageTip = function(){
+        var tipSum = 0;
+        for(var i=0; i<tips.length; i+=1){
+            tipSum += tips[i];
+        }
+        tipSum = tipSum / tips.length;
+        console.log(tipSum);
+    }
+</script>
+</html>

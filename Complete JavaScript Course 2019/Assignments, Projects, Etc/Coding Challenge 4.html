@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <h1>Coding Challenge 4</h1>
+    </head>
+<script>
+    //There is a John and Mark
+    var john = {
+        fullname: "John Smith",
+        mass: 40,
+        height: 3.2,
+        bmi: 0,
+        calculateBMI: function(){
+            this.bmi = this.mass / (this.height * this.height);
+            return this.bmi;
+        },
+    };
+    var mark = {
+        fullname: "Mark Miller",
+        mass: 58,
+        height: 3,
+        bmi: 0,
+        calculateBMI: function(){
+            this.bmi = this.mass / (this.height * this.height);
+            return this.bmi;
+        },
+    }
+    var logHigherBMI = function(){
+        if(john.bmi > mark.bmi){
+            console.log("John has the higer BMI. " + john.fullname + " has a BMI of " + john.bmi + " and " + mark.fullname + " has a BMI of " + mark.bmi + ".");
+        }else if(mark.bmi > john.bmi){
+            console.log("Mark has the higer BMI. " + john.fullname + " has a BMI of " + john.bmi + " and " + mark.fullname + " has a BMI of " + mark.bmi + ".");
+        }else{
+            console.log("Mark and John have the same BMI. " + john.fullname + " has a BMI of " + john.bmi + " and " + mark.fullname + " has a BMI of " + mark.bmi + ".");
+        }
+    }
+</script>
+</html>
