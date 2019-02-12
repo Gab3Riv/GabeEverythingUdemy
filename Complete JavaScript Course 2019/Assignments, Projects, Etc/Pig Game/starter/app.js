@@ -16,7 +16,7 @@ Coding Challenges
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, diceHistory, firstSlot, doubleSixes;
+var scores, roundScore, activePlayer, gamePlaying, diceHistory, firstSlot, doubleSixes, winningScore;
 
 init();
 
@@ -54,7 +54,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-        if(scores[activePlayer] >= 100){
+        if(scores[activePlayer] >= winningScore){
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -64,6 +64,10 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
             nextPlayer();
         }
     }
+});
+
+document.getElementById('winningScore').addEventListener('keyup', function(){
+    winningScore = document.getElementById('winningScore').value;
 });
 
 var nextPlayer = function(){
@@ -88,6 +92,7 @@ function init(){
     diceHistory = [0,0];
     activePlayer = 0;
     roundScore = 0;
+    winningScore = 0;
     gamePlaying = true;
     firstSlot = true;
     doubleSixes = false;
