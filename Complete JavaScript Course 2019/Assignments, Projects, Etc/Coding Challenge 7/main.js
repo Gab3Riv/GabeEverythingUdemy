@@ -40,35 +40,48 @@ but you don't have to, just do this with the tools you feel more comfortbale at 
 
 */
 
-var Question = function(question, answers, correctAnswer){
-    this.question = question;
-    this.answers = answers;
-    this.correctAnswer = correctAnswer;
-    this.printQuestion = function(){
-        console.log(this.question);
-    };
-    this.printAnswers = function(){
-        for(var i=0; i < this.answers.length; i+=1){
-            console.log(i + '. ' + this.answers[i]);
+(function () {
+    var Question = function(question, answers, correctAnswer){
+        this.question = question;
+        this.answers = answers;
+        this.correctAnswer = correctAnswer;
+        this.printQuestion = function(){
+            console.log(this.question);
+        };
+        this.printAnswers = function(){
+            for(var i=0; i < this.answers.length; i+=1){
+                console.log(i + '. ' + this.answers[i]);
+            }
+        }
+        this.checkAnswer = function(answer){
+            if(answer === this.correctAnswer){
+                console.log("You are correct!");
+            }else{
+                console.log("You are wrong! Sorry.");
+            }
         }
     }
-}
 
-var questionArray = [];
+    var questionArray = [];
 
-var questionOne = new Question('Is a dog an animal?', ['yes','no'], 'yes');
-var questionTwo = new Question('Do dogs and cats get along?', ['yes', 'no'], 'no');
-var questionThree = new Question('Does Gabes Brother make music?', ['yes', 'no', 'maybe'], 'yes');
-var questionFour = new Question('Does Gabe prefer salty or sweet food?', ['salty', 'sweet'], 'salty');
-var questionFive = new Question('Is Adriel Rivera, Gabes Brother?', ['IDK', 'maybe', 'partly', 'yes', 'no'], 'yes');
+    var questionOne = new Question('Is a dog an animal?', ['yes','no'], 0);
+    var questionTwo = new Question('Do dogs and cats get along?', ['yes', 'no'], 1);
+    var questionThree = new Question('Does Gabes Brother make music?', ['yes', 'no', 'maybe'], 0);
+    var questionFour = new Question('Does Gabe prefer salty or sweet food?', ['salty', 'sweet'], 0);
+    var questionFive = new Question('Is Adriel Rivera, Gabes Brother?', ['IDK', 'maybe', 'partly', 'yes', 'no'], 3);
 
-questionArray.push(questionOne);
-questionArray.push(questionTwo);
-questionArray.push(questionThree);
-questionArray.push(questionFour);
-questionArray.push(questionFive);
+    questionArray.push(questionOne);
+    questionArray.push(questionTwo);
+    questionArray.push(questionThree);
+    questionArray.push(questionFour);
+    questionArray.push(questionFive);
 
-var randomNum = Math.floor(Math.random() * (questionArray.length));
-questionArray[randomNum].printQuestion();
-questionArray[randomNum].printAnswers();
+    var randomNum = Math.floor(Math.random() * (questionArray.length));
+    questionArray[randomNum].printQuestion();
+    questionArray[randomNum].printAnswers();
+
+    var answer = parseInt(prompt('What is your answer?', 'Please choose a number.'));
+    questionArray[randomNum].checkAnswer(answer);
+})();
+
 
