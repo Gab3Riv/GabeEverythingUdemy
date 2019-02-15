@@ -34,7 +34,7 @@ DON'T call the function from task 8.
 
 10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score 
 (HINT: I'm going to use the power of closure for this,
-but you don't have to, just do this with the tools you feel more comfortbale at this point).
+but you don't have to, just do this with the tools you feel more comfortable at this point).
 
 11. Display the score in the console. Use yet another method for this.
 
@@ -45,6 +45,9 @@ but you don't have to, just do this with the tools you feel more comfortbale at 
         this.question = question;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
+        this.printScore = function(){
+            console.log('Your Score Is ' + score);
+        }
         this.printQuestion = function(){
             console.log(this.question);
         };
@@ -54,14 +57,22 @@ but you don't have to, just do this with the tools you feel more comfortbale at 
             }
         }
         this.checkAnswer = function(answer){
-            if(answer === this.correctAnswer){
+            if(parseInt(answer) === this.correctAnswer){
                 console.log("You are correct!");
+                score += 1;
+                this.printScore();
+                getRandomQuestion();
+            }else if(answer === 'exit'){
+                console.log("Thanks for playing!");
+                return;
             }else{
                 console.log("You are wrong! Sorry.");
+                this.printScore();
+                getRandomQuestion();
             }
         }
     }
-
+    var score = 0;
     var questionArray = [];
 
     var questionOne = new Question('Is a dog an animal?', ['yes','no'], 0);
@@ -76,12 +87,15 @@ but you don't have to, just do this with the tools you feel more comfortbale at 
     questionArray.push(questionFour);
     questionArray.push(questionFive);
 
-    var randomNum = Math.floor(Math.random() * (questionArray.length));
-    questionArray[randomNum].printQuestion();
-    questionArray[randomNum].printAnswers();
+    function getRandomQuestion(){
+        var randomNum = Math.floor(Math.random() * (questionArray.length));
+        questionArray[randomNum].printQuestion();
+        questionArray[randomNum].printAnswers();
 
-    var answer = parseInt(prompt('What is your answer?', 'Please choose a number.'));
-    questionArray[randomNum].checkAnswer(answer);
+        var answer = prompt('What is your answer?', 'Please choose a number.');
+        questionArray[randomNum].checkAnswer(answer);
+    }
+    getRandomQuestion();
 })();
 
 
