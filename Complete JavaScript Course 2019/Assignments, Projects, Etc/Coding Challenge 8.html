@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <title>Coding Challenge 8</title>
+    </head>
+    <script>
+    /*
+    Suppose that you're working in a small town administration, and
+    you're in charge of two town elements:
+    1. Parks
+    2. Streets
+
+    It's a very small town, so right now there are only 3 parks and 
+    4 streets. All parks and streets have a name and a build year.
+
+    At an end-of-year meeting, your boss wants a final report with
+    the following:
+    1.Tree density of each park in the town
+    (formula: number of trees/park area)
+    2. Average age of each town's park (formula: sum of all 
+    ages/number of parks)
+    3. The name of the park that has more than 1000 trees
+    4. Total and average length of the town's streets
+    5. Size classification of all streets:
+    tiny/small/normal/big/huge. If the size if unknown,
+    the default is normal.
+
+    All the report data should be printed to the console.
+
+    HINT: Use some of the ES6 features: classes, subclasses,
+    template strings, default parameters, maps, arrow functions,
+    destructing, etc. ALL IN ES6
+
+    EXAMPLE:
+    ----PARKS REPORT----
+    Our 3 parks have an average of 71.3333333333333333 years.
+    Green Park has a tree density of 1075 trees per square km
+    National Park has a tree density of 1221.0344827586207 trees per square km
+    Oak Park has a tree density of 2372.5 trees per square km
+    National Park has more than 1000 trees.
+    ----STREETS REPORT----
+    Our 4 streets have a total length of 7.10000000000005 km, with an average of
+    1.775000000000001 km.
+    Ocean Avenue, built in 1999, is a big street.
+    Evergreen Street, built in 2000, is a small street.
+    4th Street, built in 2015, is a normal street.
+    Sunset Boulevard, built in 1982, is a huge street.
+    */
+   {
+    //BEGINNING OF CONSTRUCTORS
+    class Park{
+        constructor(name, year, parkArea, trees){
+            this.name = name;
+            this.year = year;
+            this.parkArea = parkArea;
+            this.trees = trees;
+            this.age = 0;
+            this.moreThan1000Trees = false;
+            this.density = (this.trees/this.parkArea).toFixed(2);
+        }
+        calculateAge(){
+            let currentYear = new Date().getFullYear();
+            this.age = currentYear - this.year;
+        }
+    }
+    class Street{
+        constructor(name, year, lenghtKM, size = 'normal'){
+            this.name = name;
+            this.year = year;
+            this.lenghtKM = lenghtKM;
+            this.size = size;
+        }
+    }
+
+    //BEGINING OF PARKS
+    let moreThan1000Trees = (park) => {
+        let moreThan1000Trees;
+        park.trees >= 1000 ? moreThan1000Trees = true : moreThan1000Trees = false;
+        if(moreThan1000Trees){
+            console.log(`${park.name} Park has more than 1000 trees.`);
+        }
+    }
+
+    let calculateAgeAverageParkAge = ((park1, park2, park3) => ((park1.age + park2.age + park3.age) / 3).toFixed(2));
+
+    //BEGINING OF STREETS
+    let calculateTotalLengthAndAverage = (streetArray) => {
+        let totLength, aveLength;
+        totLength = 0;
+        Array.from(streetArray).forEach(element => {
+            totLength += element.lenghtKM;
+        });
+        aveLength = totLength / streetArray.length;
+        return [totLength.toFixed(2), aveLength.toFixed(2)];
+    }
+
+    let logStreetInfo = (streetArray) => {
+        Array.from(streetArray).forEach(element =>{
+            console.log(`${element.name}, built in ${element.year}, is a ${element.size} street.`);
+        });
+    }
+
+    //Last Declared Function
+    let printToConsole = () => {
+        console.log(`----PARKS REPORT----`);
+        console.log(`Our 3 parks have an average of ${calculateAgeAverageParkAge(park_1, park_2, park_3)} years.`);
+        console.log(`${park_1.name} Park has a tree density of ${park_1.density} trees per square km.`);
+        console.log(`${park_2.name} Park has a tree density of ${park_2.density} trees per square km.`);
+        console.log(`${park_3.name} Park has a tree density of ${park_3.density} trees per square km.`);
+        moreThan1000Trees(park_1);
+        moreThan1000Trees(park_2);
+        moreThan1000Trees(park_3);
+        console.log(`----STREETS REPORT----`);
+        console.log(`Our 4 streets have a total length of ${total} km, with an average of ${average} km.`);
+        logStreetInfo(streets);
+    }
+
+    let park_1, park_2, park_3, streets;
+    park_1 = new Park('Rhino', 1992, 2.2, 654);
+    park_2 = new Park('Giraffe', 1823, 0.5, 781);
+    park_3 = new Park('Goofy', 1394, 7.3, 91777);
+    park_1.calculateAge();
+    park_2.calculateAge();
+    park_3.calculateAge();
+
+    streets = [new Street('Adriel St', 2000, 2.2, 'huge'), new Street('Gabriel St', 1997, 1.5, 'normal'), new Street('Jasmine St', 1999, 0.9, 'small'), new Street('Eziel St', 2014, 1.7)];
+    
+    //Last Function That Will Happen
+    let [total, average] = calculateTotalLengthAndAverage(streets);
+    printToConsole();
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    <body>
+        <h1>Coding Challenge 8</h1>
+    </body>
+</html>
