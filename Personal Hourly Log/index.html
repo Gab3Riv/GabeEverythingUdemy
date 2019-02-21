@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Personal Hourly Log</title>
+</head>
+<body class="center">
+    <h1>Personal Hourly Log</h1>
+    <select id='dropdown'>
+        <option value="+">+</option>
+        <option value="-">-</option>
+    </select>
+    <input id="timeInput" type="text" name="time" placeholder="Minutes:Seconds">
+    <button id='timeSubmit'>Submit Minutes:Seconds</button><br>
+    <button id='reset'>Reset</button>
+    <div>
+        <h3>Your Daily Result</h3>
+        <div id='hoursResult'>Hours: 0</div>
+        <div id='minutesResult'>Minutes: 0</div>
+        <div id='secondsResult'>Seconds: 0</div>
+
+        <h3>Your Daily Goal</h3>
+        <div>Hours: 3</div>
+        <div>Minutes: 0</div>
+        <div>Seconds: 0</div>
+
+    </div>
+</body>
+<script src="index.js"></script>
+</html>
