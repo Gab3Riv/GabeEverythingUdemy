@@ -1,7 +1,7 @@
 let currentHours, currentMinutes, currentSeconds;
-localStorage.getItem("currentHours") !== undefined ? currentHours = parseInt(localStorage.getItem("currentHours")) : currentHours = 0;
-localStorage.getItem("currentMinutes") !== undefined ? currentMinutes = parseInt(localStorage.getItem("currentMinutes")) : currentMinutes = 0;
-localStorage.getItem("currentSeconds") !== undefined ? currentSeconds = parseInt(localStorage.getItem("currentSeconds")) : currentSeconds = 0;
+localStorage.getItem("currentHours") !== "NaN"  ? currentHours = parseInt(localStorage.getItem("currentHours")) : currentHours = 0;
+localStorage.getItem("currentMinutes") !== "NaN" ? currentMinutes = parseInt(localStorage.getItem("currentMinutes")) : currentMinutes = 0;
+localStorage.getItem("currentSeconds") !== "NaN"  ? currentSeconds = parseInt(localStorage.getItem("currentSeconds")) : currentSeconds = 0;
 
 /*
 if(typeof(Storage) !== "undefined"){
@@ -33,19 +33,59 @@ document.querySelector('#timeSubmit').addEventListener('click', ()=>{
         if(document.querySelector('#dropdown').value === '+'){
             currentMinutes += parseInt(minutes);
             currentSeconds += parseInt(seconds);
+            calculateTimePositive();
         }else{
-            currentMinutes -= parseInt(minutes);
-            currentSeconds -= parseInt(seconds);
+            calculcateTimeNegative(parseInt(minutes), parseInt(seconds));
         }
-        calculateTime();
         displayTime();
     }catch(error){
         console.log(error);
-    }
-    
+    }  
 });
 
-let calculateTime = () => {
+let calculcateTimeNegative = (tempMinutes, tempSeconds) => {
+    let tempHours = 0; //0:90:0 --> 1:30:0   Total Time: 8:00:00 --> 6:30:00
+                        //0:0:21 --> 0:0:21  Total Time: 0:01:20 --> 0:00:59
+    while(tempSeconds >= 60){
+        tempMinutes += 1;
+        tempSeconds -= 60;
+    }
+    while(tempMinutes >= 60){
+        tempHours += 1;
+        tempMinutes -= 60;
+    }
+    currentHours -= tempHours;
+    if(currentHours < 0){
+        setEverythingToZero();
+        return;
+    }
+    currentMinutes -= tempMinutes;
+    while(currentMinutes < 0){
+        if(currentHours > 1){
+            currentHours -= 1;
+            currentMinutes += 60;
+        }else{
+            setEverythingToZero();
+        }
+    }
+    currentSeconds -= tempSeconds;
+    while(currentSeconds < 0){
+        if(currentMinutes > 1){
+            currentMinutes -= 1;
+            currentSeconds += 60;
+        }else{
+            setEverythingToZero();
+        }
+    }
+}
+
+let setEverythingToZero = () => {
+    currentHours = 0;
+    currentMinutes = 0;
+    currentSeconds = 0;
+}
+
+let calculateTimePositive = () => {
     setToZero();
     while(currentSeconds >= 60){
         currentMinutes += 1;
@@ -76,5 +116,4 @@ let setToZero = () => {
     if(currentMinutes < 0){currentMinutes = 0}
     if(currentSeconds < 0){currentSeconds = 0}
 }
-
 displayTime();
